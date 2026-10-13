@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: drivo-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-drivo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-drivo123}
+      POSTGRES_DB: ${POSTGRES_DB:-drivo}
+    ports:
+      - "5433:5432"
+    volumes:
+      - drivo_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-drivo} -d ${POSTGRES_DB:-drivo}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  drivo_pgdata:
