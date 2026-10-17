@@ -1,337 +1,228 @@
-# Drivo
+# Drivo — Gestão de Veículos
 
-Aplicação web para gerenciamento de veículos, com autenticação de usuários e extração de informações de documentos CRLV por meio de inteligência artificial.
+Aplicação web full-stack para gerenciamento de veículos, desenvolvida com Next.js e NestJS. O projeto utiliza autenticação JWT, persistência relacional com PostgreSQL e Docker Compose para simplificar a configuração e a execução do ambiente.
 
-## Funcionalidades
+## 1. Tecnologias utilizadas
 
-- Cadastro e autenticação de usuários.
-- Autenticação baseada em JWT (JSON Web Token).
-- Consulta do perfil do usuário autenticado.
-- Alteração de senha.
-- Cadastro, listagem, consulta, atualização e exclusão de veículos.
-- Extração de informações de documentos CRLV por meio da API do Google Gemini.
-- Validação dos dados de entrada.
-- Persistência de dados em PostgreSQL com Prisma ORM.
-- Testes automatizados unitários e end-to-end.
-- Execução dos serviços com Docker Compose.
+| Camada | Tecnologia | Finalidade |
+|---|---|---|
+| Frontend | Next.js, React e TypeScript | Interface e navegação da aplicação |
+| Backend | NestJS e TypeScript | API REST e regras de negócio |
+| ORM | Prisma | Acesso ao banco e versionamento do schema |
+| Banco de dados | PostgreSQL 17 | Persistência dos dados |
+| Autenticação | JWT | Autenticação e proteção de rotas |
+| Infraestrutura | Docker e Docker Compose | Containerização e execução integrada |
+| Testes | Jest | Testes automatizados |
 
-## Tecnologias utilizadas
+## 2. Funcionalidades
+
+- Cadastro de usuários e autenticação.
+- Login com emissão de token JWT.
+- Consulta dos dados do usuário autenticado.
+- Cadastro, listagem, consulta, edição e exclusão de veículos.
+- Interface para gerenciamento de perfil e veículos.
+- Módulo relacionado ao processamento de documentos CRLV.
+
+## 3. Arquitetura e organização
+
+O projeto está organizado em dois componentes principais: frontend e backend, executados junto ao banco de dados por meio do Docker Compose.
 
 ### Frontend
 
-- Next.js
-- React
-- TypeScript
+Desenvolvido com Next.js, React e TypeScript, é responsável pela interface, navegação entre páginas e interação com a API.
+
+A utilização de componentes e CSS Modules favorece a reutilização da interface e mantém os estilos organizados por componente ou página.
 
 ### Backend
 
-- Node.js
-- NestJS
-- TypeScript
-- Prisma ORM
-- PostgreSQL
-- JWT
-- Jest
-- Google Gemini API
+Construído com NestJS, o backend disponibiliza uma API REST e separa as responsabilidades em módulos, controllers, services e DTOs.
 
-### Infraestrutura
+- **Modules:** agrupam funcionalidades relacionadas.
+- **Controllers:** recebem requisições HTTP e definem os endpoints.
+- **Services:** concentram as regras de negócio e operações sobre os dados.
+- **DTOs:** definem a estrutura dos dados recebidos pela API.
+- **Guards e estratégia de autenticação:** protegem rotas que exigem identificação do usuário.
 
-- Docker
-- Docker Compose
+Essa separação reduz o acoplamento entre as camadas e facilita a manutenção e a evolução do sistema.
 
-## Arquitetura
+### Banco de dados
 
-O projeto é composto por três componentes principais:
+O PostgreSQL armazena os dados persistentes da aplicação, enquanto o Prisma fornece uma camada tipada de acesso ao banco e gerencia as migrations.
 
-- **Frontend:** interface web desenvolvida com Next.js e React.
-- **Backend:** API REST desenvolvida com NestJS, responsável pela autenticação, pelas regras de negócio e pelo acesso aos dados.
-- **Banco de dados:** PostgreSQL, acessado pelo backend por meio do Prisma ORM.
+O versionamento do schema permite registrar alterações estruturais e reproduzir a evolução do banco nos ambientes de desenvolvimento.
 
-O Docker Compose coordena a inicialização dos serviços e facilita a execução da aplicação em ambiente local.
+## 4. Decisões técnicas
 
-## Pré-requisitos
+### Separação entre frontend e backend
 
-Para executar o projeto, são necessários:
+A aplicação utiliza duas camadas independentes, se comunicando por meio de uma API REST. Essa abordagem permite evoluir a interface e as regras de negócio separadamente, além de facilitar a substituição ou expansão de clientes no futuro.
+
+### NestJS e arquitetura modular
+
+O NestJS foi escolhido para organizar o backend em módulos e manter responsabilidades bem definidas. A separação entre controllers, services e DTOs favorece a testabilidade e evita concentrar o processamento das requisições em uma única camada.
+
+### TypeScript
+
+O TypeScript é utilizado no frontend e no backend para adicionar tipagem estática, melhorar a legibilidade e detectar parte dos erros durante o desenvolvimento.
+
+### Prisma e PostgreSQL
+
+A combinação oferece persistência relacional, consultas tipadas e migrations versionadas. O PostgreSQL é adequado para representar as relações entre usuários e veículos, enquanto o Prisma simplifica o acesso aos dados.
+
+### Autenticação e isolamento de dados
+
+O JWT permite identificar o usuário nas requisições protegidas. Além da autenticação, as operações sobre veículos devem considerar o identificador do usuário autenticado, impedindo que um usuário consulte ou altere registros pertencentes a outra conta.
+
+### Docker Compose
+
+A containerização padroniza a execução dos serviços e reduz diferenças entre ambientes. Com as variáveis de ambiente configuradas, frontend, backend e banco de dados podem ser iniciados por um único comando.
+
+## 5. Pré-requisitos
 
 - Git.
-- Docker Engine.
-- Docker Compose V2.
-- Uma chave de API do Google Gemini para utilizar a extração de dados de CRLV.
+- Docker Desktop no Windows ou Docker Engine e Docker Compose no Linux.
+- Arquivo `.env` configurado conforme o `.env.example`.
 
-Para executar o frontend e o backend fora do Docker, também é necessário instalar Node.js e npm.
+## 6. Instalação e execução
 
-## Configuração do ambiente
+Clone o repositório:
 
-Na raiz do projeto, crie o arquivo local de variáveis de ambiente a partir do exemplo:
+```bash
+git clone https://github.com/joaogt01/Drivo.git
+cd Drivo
+```
+
+Crie o arquivo de ambiente.
+
+**Windows — PowerShell:**
+
+```powershell
+Copy-Item .env.example .env
+```
+
+**Linux — Bash:**
 
 ```bash
 cp .env.example .env
 ```
 
-Edite o arquivo `.env` e configure as seguintes variáveis:
+Configure as variáveis necessárias no `.env`. Não utilize credenciais reais em arquivos versionados.
 
-| Variável | Descrição |
-|---|---|
-| `POSTGRES_USER` | Usuário do PostgreSQL. |
-| `POSTGRES_PASSWORD` | Senha do PostgreSQL. |
-| `POSTGRES_DB` | Nome do banco de dados. |
-| `JWT_SECRET` | Chave secreta forte para assinatura dos tokens JWT. |
-| `JWT_EXPIRES_IN` | Tempo de validade dos tokens, por exemplo, `1d`. |
-| `GEMINI_API_KEY` | Chave de API do Google Gemini. |
-
-**Importante:** o arquivo `.env` contém informações sensíveis e não deve ser enviado ao repositório. O arquivo `.env.example` deve conter apenas valores ilustrativos, sem credenciais reais.
-
-## Executando com Docker Compose
-
-Na raiz do projeto, execute:
+Inicie a aplicação na raiz do projeto:
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
-O Docker Compose constrói as imagens e inicia os serviços definidos na configuração.
+O comando constrói as imagens necessárias e inicia os serviços definidos na configuração do Compose.
 
-O PostgreSQL possui uma verificação de saúde (`healthcheck`). O backend aguarda o banco ficar saudável antes de iniciar.
+### Endereços
 
-Antes de iniciar a API, o contêiner do backend executa automaticamente `npx prisma migrate deploy`, aplicando as migrations pendentes. A aplicação NestJS é iniciada somente se esse comando for concluído com sucesso.
-
-Após a inicialização, os serviços ficam disponíveis em:
-
-| Serviço | Endereço |
+| Serviço | URL |
 |---|---|
 | Frontend | http://localhost:3000 |
 | Backend | http://localhost:3001 |
-| Verificação da API | http://localhost:3001/ |
 
-Para acompanhar os logs dos serviços:
+### Comandos úteis
+
+Visualizar o estado dos serviços:
+
+```bash
+docker compose ps
+```
+
+Acompanhar os logs:
 
 ```bash
 docker compose logs -f
 ```
 
-Para consultar apenas os logs do backend:
-
-```bash
-docker compose logs backend
-```
-
-Para encerrar os serviços:
+Encerrar os serviços:
 
 ```bash
 docker compose down
 ```
 
-Os dados do PostgreSQL são armazenados em um volume Docker, permitindo sua persistência após a parada dos contêineres.
+O comando `docker compose down` não remove os volumes nomeados por padrão. Para remover também os dados persistidos, seria necessário utilizar `docker compose down -v`; essa operação é destrutiva.
 
-**Atenção:** o comando `docker compose down` não remove normalmente o volume de dados. Evite usar `docker compose down -v` se precisar preservar o banco.
+## 7. Testes
 
-## Executando em modo de desenvolvimento
-
-Também é possível executar o frontend e o backend separadamente.
+Os testes ajudam a validar o comportamento do backend e a compilação do frontend.
 
 ### Backend
 
-Entre no diretório do backend:
+No diretório `backend`, instale as dependências:
 
 ```bash
-cd backend
+npm ci
 ```
 
-Instale as dependências:
-
-```bash
-npm install
-```
-
-Configure as variáveis de ambiente necessárias para conectar o backend ao PostgreSQL e acessar os serviços externos.
-
-Inicie o servidor em modo de desenvolvimento:
-
-```bash
-npm run start:dev
-```
-
-Por padrão, a API é executada na porta `3001`.
-
-### Frontend
-
-Em outro terminal, entre no diretório do frontend:
-
-```bash
-cd frontend
-```
-
-Instale as dependências:
-
-```bash
-npm install
-```
-
-Configure a variável de ambiente `NEXT_PUBLIC_API_URL` para apontar para a API do backend. Em ambiente local, normalmente:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
-```
-
-Inicie o frontend:
-
-```bash
-npm run dev
-```
-
-O frontend estará disponível em http://localhost:3000.
-
-## API REST
-
-A API disponibiliza endpoints para autenticação, gerenciamento de veículos e extração de dados de CRLV.
-
-### Autenticação
-
-| Método | Endpoint | Descrição | Autenticação |
-|---|---|---|---|
-| `POST` | `/auth/register` | Cadastro de usuário. | Pública |
-| `POST` | `/auth/login` | Autenticação de usuário. | Pública |
-| `GET` | `/auth/me` | Consulta do perfil autenticado. | JWT |
-| `PATCH` | `/auth/change-password` | Alteração de senha. | JWT |
-
-### Veículos
-
-| Método | Endpoint | Descrição | Autenticação |
-|---|---|---|---|
-| `POST` | `/vehicles` | Cadastro de veículo. | JWT |
-| `GET` | `/vehicles` | Lista os veículos do usuário autenticado. | JWT |
-| `GET` | `/vehicles/:id` | Consulta um veículo pelo identificador. | JWT |
-| `PATCH` | `/vehicles/:id` | Atualiza os dados de um veículo. | JWT |
-| `DELETE` | `/vehicles/:id` | Exclui um veículo. | JWT |
-
-### Extração de dados de CRLV
-
-| Método | Endpoint | Descrição | Autenticação |
-|---|---|---|---|
-| `POST` | `/crlv/extract` | Extrai informações de um documento CRLV usando IA. | JWT |
-
-O endpoint de extração recebe um arquivo por meio de `multipart/form-data`, utilizando o campo `file`.
-
-A extração depende de uma chave válida da API do Google Gemini e está sujeita às validações de formato e tamanho implementadas no backend.
-
-### Autenticação com JWT
-
-As rotas protegidas exigem o token JWT no cabeçalho HTTP:
-
-```http
-Authorization: Bearer <token>
-```
-
-O token é obtido após a autenticação bem-sucedida e deve ser enviado nas requisições que exigem autenticação.
-
-As operações de gerenciamento de veículos devem respeitar a associação entre cada veículo e o usuário autenticado.
-
-## Banco de dados e migrations
-
-O PostgreSQL armazena os dados da aplicação, e o Prisma ORM gerencia o acesso ao banco e o esquema.
-
-O schema e as migrations ficam no diretório `backend/prisma/`.
-
-Para verificar o estado das migrations, entre no diretório `backend`, com o banco acessível e `DATABASE_URL` configurada:
-
-```bash
-npx prisma migrate status
-```
-
-Para aplicar migrations pendentes manualmente, quando necessário:
-
-```bash
-npx prisma migrate deploy
-```
-
-Para gerar o Prisma Client:
-
-```bash
-npx prisma generate
-```
-
-No ambiente Docker, a aplicação executa automaticamente `prisma migrate deploy` antes de iniciar o backend.
-
-## Testes e validação
-
-Os testes automatizados do backend utilizam Jest.
-
-Execute os comandos a seguir dentro do diretório `backend`.
-
-### Testes unitários
+Execute os testes unitários:
 
 ```bash
 npm test -- --runInBand
 ```
 
-### Testes com cobertura
-
-```bash
-npm run test:cov -- --runInBand
-```
-
-O relatório de cobertura é gerado no diretório `backend/coverage/`.
-
-### Testes end-to-end
+Execute os testes E2E:
 
 ```bash
 npm run test:e2e -- --runInBand
 ```
 
-### Compilação do backend
+Os testes E2E podem depender de variáveis de ambiente e serviços configurados. Consulte a configuração de testes do projeto antes de executá-los.
+
+### Frontend
+
+No diretório `frontend`, instale as dependências e valide a compilação de produção:
 
 ```bash
+npm ci
 npm run build
 ```
 
-### Compilação do frontend
+## 8. Limitações e melhorias futuras
 
-Entre no diretório `frontend` e execute:
+### Limitações
 
-```bash
-npm run build
-```
+Devido ao tempo disponível para o desenvolvimento, algumas funcionalidades complementares e melhorias de acabamento não foram concluídas.
 
-Esses comandos ajudam a verificar a integridade do código, o funcionamento dos testes e a capacidade de compilação das aplicações.
+- Documentação da API: a documentação interativa com OpenAPI/Swagger não foi concluída. Sua implementação facilitaria a consulta dos endpoints, parâmetros, DTOs, códigos de resposta e requisitos de autenticação.
 
-## Estrutura do projeto
+- Imagens personalizadas dos veículos: a configuração e o gerenciamento de imagens personalizadas para cada veículo não foram concluídos. A funcionalidade poderia incluir upload, pré-visualização, substituição e remoção de imagens, além de validação de formato e tamanho dos arquivos.
+
+- Processamento de documentos CRLV: o módulo relacionado aos documentos CRLV necessita de validação dos fluxos suportados e de testes adicionais para garantir o comportamento esperado diante de diferentes arquivos e dados inválidos.
+
+- Cobertura de testes: apesar da existência de testes automatizados, ainda há espaço para ampliar os cenários de integração e E2E, principalmente nos fluxos completos de autenticação, gerenciamento de veículos e processamento de documentos.
+
+### Melhorias planejadas
+
+Com mais tempo de desenvolvimento, as seguintes melhorias seriam priorizadas:
+
+- Implementar OpenAPI/Swagger: disponibilizar documentação interativa da API, com descrição dos endpoints, exemplos de requisição e resposta, validações e autenticação JWT.
+
+- Adicionar imagens personalizadas: permitir que cada veículo tenha uma imagem própria, com upload, visualização, substituição e exclusão, incluindo validação de arquivos e armazenamento apropriado.
+
+- Aprimorar o módulo CRLV: concluir e validar os fluxos de processamento documental, incluindo tratamento de erros e arquivos inválidos.
+
+- Expandir os testes automatizados: cobrir mais cenários de integração, autorização, validação de dados e falhas inesperadas.
+
+- Automatizar a qualidade do código: configurar CI/CD para executar testes, validações e builds a cada alteração.
+
+- Fortalecer a operação em produção: implementar logs estruturados, monitoramento, backups e configurações de segurança específicas para o ambiente de implantação.
+
+## 9. Estrutura do repositório
 
 ```text
-drivo/
+Drivo/
 ├── backend/
-│   ├── prisma/
-│   │   ├── migrations/
-│   │   └── schema.prisma
-│   ├── src/
-│   │   ├── auth/
-│   │   ├── crlv/
-│   │   ├── prisma/
-│   │   ├── vehicles/
-│   │   ├── app.module.ts
-│   │   └── main.ts
-│   ├── test/
-│   ├── Dockerfile
-│   └── package.json
 ├── frontend/
-│   ├── public/
-│   └── package.json
-├── .env.example
-├── .gitignore
 ├── docker-compose.yml
+├── .env.example
 └── README.md
 ```
 
-### Principais módulos do backend
+A estrutura interna de cada aplicação contém os arquivos de implementação, configuração e testes correspondentes.
 
-- `auth/`: cadastro, autenticação e operações relacionadas à conta do usuário.
-- `crlv/`: recebimento e extração de informações de documentos CRLV.
-- `prisma/`: integração com o Prisma ORM.
-- `vehicles/`: gerenciamento de veículos.
-- `test/`: testes end-to-end.
+## Autor
 
-## Limitações e observações
-
-- A extração de dados de CRLV depende da disponibilidade e das condições de uso da API do Google Gemini.
-- A qualidade dos dados extraídos pode variar conforme a legibilidade do documento.
-- A execução local depende da configuração correta das variáveis de ambiente e da disponibilidade dos serviços necessários.
-- A documentação dos endpoints deve ser mantida em conformidade com a implementação atual do backend.
+**João Victor** — [GitHub](https://github.com/joaogt01)
