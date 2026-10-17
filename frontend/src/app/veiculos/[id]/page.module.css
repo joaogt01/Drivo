@@ -1,0 +1,283 @@
+.pageContent {
+  width: min(1240px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.formPage {
+  padding-top: 26px;
+}
+
+.formPage > h1 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  letter-spacing: -0.8px;
+}
+
+.vehicleFormLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  padding-bottom: 65px;
+}
+
+.editLayout {
+  align-items: start;
+}
+
+.formMain {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.formPanel {
+  min-width: 0;
+  padding: 24px;
+  border-radius: 14px;
+  background: #1c1c1e;
+}
+
+.formPanel h2 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.formPanel > p {
+  margin: 0 0 18px;
+  color: #8e8e93;
+  font-size: 11px;
+}
+
+.formGrid {
+  display: grid;
+  gap: 16px 14px;
+}
+
+.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.spanTwo {
+  grid-column: span 2;
+}
+
+.formAside {
+  min-width: 0;
+}
+
+.formBottom {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  min-height: 66px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px max(32px, calc((100vw - 1240px) / 2));
+  border-top: 1px solid #29292c;
+  background: #171719f5;
+  backdrop-filter: blur(12px);
+  color: #8e8e93;
+  font-size: 11px;
+}
+
+.formBottom > div {
+  display: flex;
+  gap: 10px;
+}
+
+.formBottom .button {
+  min-width: 120px;
+}
+
+@media (max-width: 900px) {
+  .vehicleFormLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .pageContent {
+    width: calc(100% - 32px);
+    padding-top: 24px;
+  }
+
+  .formPanel {
+    padding: 18px;
+  }
+
+  .two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spanTwo {
+    grid-column: auto;
+  }
+
+  .formBottom {
+    padding: 12px 16px;
+  }
+
+  .formBottom > span {
+    display: none;
+  }
+
+  .formBottom > div {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .formBottom .button {
+    min-width: 0;
+    padding: 0 12px;
+  }
+}
+
+.modalBackdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #000b;
+  backdrop-filter: blur(7px);
+}
+
+.confirmModal {
+  width: min(100%, 360px);
+  padding: 26px;
+  border-radius: 17px;
+  background: var(--surface);
+  box-shadow: 0 20px 70px #0009;
+  text-align: center;
+}
+
+.confirmModal h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.confirmModal p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.confirmModal > div:last-child {
+  display: flex;
+  gap: 9px;
+}
+
+.confirmModal > div:last-child > button {
+  flex: 1;
+}
+
+.warningIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  margin: 0 auto 17px;
+  border-radius: 50%;
+  background: #ff001822;
+  color: #ff3346;
+  font-size: 24px;
+}
+
+.side-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.side-summary > div:first-child,
+.side-summary > div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+}
+
+.side-summary small {
+  color: var(--text-secondary);
+}
+
+.side-summary b {
+  font-weight: 500;
+}
+.deleteBox {
+  margin-top: 4px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #111113;
+}
+
+.deleteBox h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+.deleteBox p {
+  margin: 0 0 14px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.uploadDrop {
+  position: relative;
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 9px;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--surface-raised);
+  color: #d1d1d6;
+  font-size: 11px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.uploadDrop:hover {
+  background: #343437;
+}
+
+.uploadDrop > span:first-child {
+  color: var(--muted);
+  font-size: 19px;
+}
+
+.uploadDrop small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 9px;
+}
+
+.uploadDrop input {
+  display: none;
+}
+
+.uploadFileIcon {
+  display: grid;
+  flex: 0 0 20px;
+  place-items: center;
+  color: var(--danger);
+  font-size: 17px;
+}
+
+.uploadFileIcon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}

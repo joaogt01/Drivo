@@ -1,0 +1,247 @@
+
+.pageContent {
+  width: min(1240px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.formPage {
+  padding-top: 26px;
+}
+
+.formPage > h1 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  letter-spacing: -0.8px;
+}
+
+.vehicleFormLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  padding-bottom: 65px;
+}
+
+.formMain {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formPanel {
+  min-width: 0;
+  padding: 24px;
+  border-radius: 14px;
+  background: #1c1c1e;
+}
+
+.formPanel h2 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.formPanel > p {
+  margin: 0 0 18px;
+  color: #8e8e93;
+  font-size: 11px;
+}
+
+.formGrid {
+  display: grid;
+  gap: 16px 14px;
+}
+
+.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.spanTwo {
+  grid-column: span 2;
+}
+
+.formAside {
+  min-width: 0;
+}
+
+.uploadPanel .button {
+  min-height: 34px;
+  margin-top: 0;
+  font-size: 10px;
+}
+
+.uploadHeading {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.uploadHeading b {
+  font-size: 13px;
+}
+
+.uploadHeading p {
+  margin: 4px 0 0;
+  color: #a1a1a6;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.uploadIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  color: #0a84ff;
+  background: #0a84ff20;
+  font-size: 20px;
+}
+
+.uploadIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.uploadDrop {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+  gap: 8px;
+  align-items: center;
+  padding: 9px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #2c2c2e;
+  color: #d1d1d6;
+  font-size: 11px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.uploadDrop:hover {
+  background: #363638;
+}
+
+.uploadFileIcon {
+  flex-shrink: 0;
+  font-size: 19px;
+  color: #a1a1a6;
+}
+
+.uploadFileIcon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.uploadFileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.uploadFileName {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uploadFileInfo small {
+  display: block;
+  margin-top: 4px;
+  color: #8e8e93;
+  font-size: 9px;
+}
+
+.uploadFileCheck {
+  flex-shrink: 0;
+  color: #30d158;
+  font-size: 16px;
+}
+
+.uploadDrop input {
+  display: none;
+}
+
+.uploadDropSelected {
+  outline: 1px solid #30d158;
+}
+
+.formBottom {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  min-height: 66px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px max(32px, calc((100vw - 1240px) / 2));
+  border-top: 1px solid #29292c;
+  background: #171719f5;
+  backdrop-filter: blur(12px);
+  color: #8e8e93;
+  font-size: 11px;
+}
+
+.formBottom > div {
+  display: flex;
+  gap: 10px;
+}
+
+.formBottom .button {
+  min-width: 120px;
+}
+
+@media (max-width: 900px) {
+  .vehicleFormLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .pageContent {
+    width: calc(100% - 32px);
+    padding-top: 24px;
+  }
+
+  .formPanel {
+    padding: 18px;
+  }
+
+  .uploadPanel {
+  padding: 18px;
+}
+
+  .two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spanTwo {
+    grid-column: auto;
+  }
+
+  .formBottom {
+    padding: 12px 16px;
+  }
+
+  .formBottom > span {
+    display: none;
+  }
+
+  .formBottom > div {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .formBottom .button {
+    min-width: 0;
+    padding: 0 12px;
+  }
+}

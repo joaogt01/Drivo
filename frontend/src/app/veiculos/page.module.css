@@ -1,0 +1,159 @@
+
+.pageContent {
+  width: min(1240px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.pageTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.pageTitleRow h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -1.2px;
+}
+
+.pageTitleRow p {
+  margin: 5px 0 0;
+  color: #8e8e93;
+  font-size: 13px;
+}
+
+.roundAdd {
+  display: inline-grid;
+  place-items: center;
+  vertical-align: 5px;
+  margin-left: 7px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: #2463ff;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.roundAdd:hover {
+  background: #3395ff;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 14px 16px;
+  border: 1px solid #303033;
+  border-radius: 10px;
+  outline: none;
+  background: #1c1c1e;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+}
+
+.searchInput:focus {
+  border-color: #0a84ff;
+}
+
+.vehiclesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.addVehicleCard {
+  display: flex;
+  min-height: 180px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px dashed #29292d;
+  border-radius: 16px;
+  color: #e5e5e7;
+  text-align: center;
+  text-decoration: none;
+}
+
+.addVehicleCard > span,
+.emptyIcon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #303033;
+  font-size: 26px;
+}
+
+.addVehicleCard b {
+  font-size: 13px;
+}
+
+.addVehicleCard small {
+  color: #8e8e93;
+  font-size: 11px;
+}
+
+.emptyState {
+  display: flex;
+  min-height: 55vh;
+  max-width: 440px;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.emptyState h2 {
+  margin: 18px 0 7px;
+  font-size: 22px;
+}
+
+.emptyState p {
+  margin: 0 0 22px;
+  color: #a1a1a6;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .vehiclesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .pageContent {
+    width: calc(100% - 32px);
+    padding-top: 26px;
+  }
+
+  .pageTitleRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pageTitleRow h1 {
+    font-size: 23px;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .vehiclesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .addVehicleCard {
+    min-height: 200px;
+  }
+}

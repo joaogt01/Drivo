@@ -1,0 +1,140 @@
+
+.vehicleCard {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #1c1c1e;
+  transition: transform 0.18s, border-color 0.18s;
+}
+
+.vehicleCard:hover {
+  transform: translateY(-2px);
+  border-color: #38383a;
+}
+
+.vehicleImageLink {
+  display: block;
+  height: 160px;
+  background: #111;
+}
+
+.vehicleImageLink img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vehicleInfo {
+  padding: 14px 15px 13px;
+}
+
+.vehicleMake,
+.vehicleData small,
+.plate small {
+  display: block;
+  color: #8e8e93;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.vehicleNameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.vehicleNameRow h2 {
+  min-width: 0;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.plate {
+  min-width: 0;
+  max-width: 100%;
+  padding: 3px 7px 4px;
+  border-radius: 4px;
+  background: #f5f5f7;
+  color: #080808;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.vehicleMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 7px 0 0;
+  color: #a1a1a6;
+  font-size: 11px;
+}
+
+.metaDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a1a1a6;
+}
+
+.plate small {
+  margin: -3px -7px 3px;
+  padding: 2px;
+  background: #2463ff;
+  color: #fff;
+  font: 600 6px Arial, sans-serif;
+  letter-spacing: 1px;
+}
+
+.vehicleData {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.vehicleData code {
+  display: block;
+  margin-top: 5px;
+  color: #f5f5f7;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.vehicleOpen {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #303033;
+  color: #bcbcc0;
+}
+
+.textAction {
+  border: 0;
+  padding: 0;
+  margin-top: 12px;
+  background: transparent;
+  color: #0a84ff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 680px) {
+  .vehicleImageLink {
+    height: 190px;
+  }
+}
