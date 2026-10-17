@@ -334,7 +334,7 @@ export default function EditVehiclePage() {
 
           <aside className={styles.formAside}>
             <section
-              className={`${styles.formPanel} ${styles.sideSummary}`}
+              className={`${styles.formPanel} ${styles['side-summary']}`}
             >
               <div>
                 <small>Cadastrado em</small>

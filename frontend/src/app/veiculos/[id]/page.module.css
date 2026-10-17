@@ -210,7 +210,9 @@
 }
 
 .side-summary b {
-  font-weight: 500;
+  font-size: 9px !important;
+  font-weight: 400;
+  line-height: 1.4;
 }
 .deleteBox {
   margin-top: 4px;
