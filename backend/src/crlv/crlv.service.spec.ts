@@ -23,7 +23,9 @@ describe('CrlvService', () => {
   let service: import('./crlv.service').CrlvService;
 
   const configService = {
-    getOrThrow: jest.fn().mockReturnValue('test-api-key'),
+    getOrThrow: jest.fn((key: string) =>
+      key === 'GEMINI_MODEL' ? 'gemini-teste' : 'test-api-key',
+    ),
   } as unknown as ConfigService;
 
   const validFile = {
@@ -77,6 +79,14 @@ describe('CrlvService', () => {
     });
 
     expect(generateContentMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('usa o modelo definido em GEMINI_MODEL', async () => {
+    await service.extractData(validFile);
+
+    expect(generateContentMock).toHaveBeenCalledWith(
+      expect.objectContaining({ model: 'gemini-teste' }),
+    );
   });
 
   it('rejeita arquivo ausente', async () => {

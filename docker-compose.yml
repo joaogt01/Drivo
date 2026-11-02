@@ -24,8 +24,12 @@ services:
       PORT: 3001
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
       JWT_SECRET: ${JWT_SECRET}
-      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      OBSERVE_APP_KEY: ${OBSERVE_APP_KEY:-}
+      OBSERVE_APP_SECRET: ${OBSERVE_APP_SECRET:-}
     ports:
       - "3001:3001"
     depends_on:

@@ -34,11 +34,13 @@ export interface ExtractedCrlvData {
 export class CrlvService {
   private readonly logger = new Logger(CrlvService.name);
   private readonly genAI: GoogleGenAI;
+  private readonly model: string;
 
   constructor(configService: ConfigService) {
     this.genAI = new GoogleGenAI({
       apiKey: configService.getOrThrow<string>('GEMINI_API_KEY'),
     });
+    this.model = configService.getOrThrow<string>('GEMINI_MODEL');
   }
 
   async extractData(
@@ -79,7 +81,7 @@ Regras:
 
     try {
       const response = await this.genAI.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: this.model,
         contents: [
           {
             inlineData: {
