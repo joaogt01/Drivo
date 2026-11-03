@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule, ObserveInstrument } from './app.module';
 
@@ -8,8 +9,13 @@ async function bootstrap() {
     instrument: ObserveInstrument,
   });
 
+  const config = app.get(ConfigService);
+
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: config
+      .getOrThrow<string>('CORS_ORIGIN')
+      .split(',')
+      .map((origin) => origin.trim()),
   });
 
   app.useGlobalPipes(
@@ -20,7 +26,7 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(config.getOrThrow<string>('PORT'));
 }
 
-bootstrap();
+void bootstrap();
