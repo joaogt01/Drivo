@@ -3,9 +3,11 @@ import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 const bcryptMock = {
-  hash: jest.fn(),
-  compare: jest.fn(),
+  hash: jest.fn<AsyncFn>(),
+  compare: jest.fn<AsyncFn>(),
 };
 jest.unstable_mockModule('bcrypt', () => ({
   default: bcryptMock,
@@ -15,14 +17,14 @@ jest.unstable_mockModule('bcrypt', () => ({
 describe('AuthService', () => {
   const prisma = {
     user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
+      findUnique: jest.fn<AsyncFn>(),
+      create: jest.fn<AsyncFn>(),
+      update: jest.fn<AsyncFn>(),
     },
   };
 
   const jwt = {
-    signAsync: jest.fn(),
+    signAsync: jest.fn<AsyncFn>(),
   };
 
   let service: import('./auth.service').AuthService;
@@ -30,7 +32,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks();
-    AuthServiceClass = (await import('./auth.service')).AuthService;
+    AuthServiceClass = (await import('./auth.service.js')).AuthService;
     service = new AuthServiceClass(
       prisma as unknown as PrismaService,
       jwt as unknown as JwtService,

@@ -5,7 +5,9 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-const generateContentMock = jest.fn();
+type AsyncFn = (...args: any[]) => Promise<any>;
+
+const generateContentMock = jest.fn<AsyncFn>();
 
 jest.unstable_mockModule('@google/genai', () => ({
   GoogleGenAI: jest.fn().mockImplementation(() => ({
@@ -53,7 +55,7 @@ describe('CrlvService', () => {
       text: JSON.stringify(validResponse),
     });
 
-    service = new (await import('./crlv.service')).CrlvService(
+    service = new (await import('./crlv.service.js')).CrlvService(
       configService,
     );
   });

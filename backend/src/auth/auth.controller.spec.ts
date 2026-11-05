@@ -3,13 +3,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 describe('AuthController', () => {
   let controller: AuthController;
-
   const authService = {
-    register: jest.fn(),
-    login: jest.fn(),
-    changePassword: jest.fn(),
+    register: jest.fn<AsyncFn>(),
+    login: jest.fn<AsyncFn>(),
+    changePassword: jest.fn<AsyncFn>(),
   };
 
   const request = {

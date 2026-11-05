@@ -6,7 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { VehiclesModule } from './vehicles/vehicles.module';
+import { VehiclesModule } from './modules/vehicle/vehicles.module';
 import { CrlvModule } from './crlv/crlv.module';
 import { validateEnv } from './shared/config/env.validation';
 import { DomainExceptionFilter } from './shared/presentation/domain-exception.filter';
