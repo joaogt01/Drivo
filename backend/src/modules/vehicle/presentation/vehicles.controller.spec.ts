@@ -8,14 +8,16 @@ import { ListVehiclesUseCase } from '../application/list-vehicles.use-case';
 import { UpdateVehicleUseCase } from '../application/update-vehicle.use-case';
 import { VehiclesController } from './vehicles.controller';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 describe('VehiclesController', () => {
   let controller: VehiclesController;
 
-  const createVehicle = { execute: jest.fn() };
-  const listVehicles = { execute: jest.fn() };
-  const getVehicle = { execute: jest.fn() };
-  const updateVehicle = { execute: jest.fn() };
-  const deleteVehicle = { execute: jest.fn() };
+  const createVehicle = { execute: jest.fn<AsyncFn>() };
+  const listVehicles = { execute: jest.fn<AsyncFn>() };
+  const getVehicle = { execute: jest.fn<AsyncFn>() };
+  const updateVehicle = { execute: jest.fn<AsyncFn>() };
+  const deleteVehicle = { execute: jest.fn<AsyncFn>() };
 
   const request = { user: { id: 'user-123', email: 'teste@example.com' } };
 

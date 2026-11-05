@@ -4,14 +4,16 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { VehicleConflictError } from '../domain/vehicle.errors';
 import { PrismaVehicleRepository } from './prisma-vehicle.repository';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 describe('PrismaVehicleRepository', () => {
   const prisma = {
     vehicle: {
-      create: jest.fn(),
-      findMany: jest.fn(),
-      findFirst: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
+      create: jest.fn<AsyncFn>(),
+      findMany: jest.fn<AsyncFn>(),
+      findFirst: jest.fn<AsyncFn>(),
+      update: jest.fn<AsyncFn>(),
+      delete: jest.fn<AsyncFn>(),
     },
   };
 
