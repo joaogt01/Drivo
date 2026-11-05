@@ -5,11 +5,13 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CrlvController } from './crlv.controller';
 import { CrlvService } from './crlv.service';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 describe('CrlvController', () => {
   let controller: CrlvController;
 
   const crlvService = {
-    extractData: jest.fn(),
+    extractData: jest.fn<AsyncFn>(),
   };
 
   beforeEach(async () => {

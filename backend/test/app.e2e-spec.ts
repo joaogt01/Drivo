@@ -7,21 +7,23 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthService } from '../src/auth/auth.service';
 
+type AsyncFn = (...args: any[]) => Promise<any>;
+
 describe('API (e2e)', () => {
   let app: INestApplication<App>;
 
   const authService = {
-    register: jest.fn(),
-    login: jest.fn(),
-    changePassword: jest.fn(),
+    register: jest.fn<AsyncFn>(),
+    login: jest.fn<AsyncFn>(),
+    changePassword: jest.fn<AsyncFn>(),
   };
 
   const prismaService = {
     $connect: jest.fn(),
     $disconnect: jest.fn(),
     user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
+      findUnique: jest.fn<AsyncFn>(),
+      create: jest.fn<AsyncFn>(),
       update: jest.fn(),
     },
     vehicle: {
